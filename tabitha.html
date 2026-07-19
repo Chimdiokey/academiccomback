@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Read with Tabitha — AcademicComback</title>
+  <meta name="description" content="A simple, no-AI study companion: Pomodoro, bionic reading, reading guide, dyslexia-friendly mode, streaks and break ideas." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%238ed0f8'/%3E%3Crect x='4' y='3' width='8' height='7' fill='%23fffdfa'/%3E%3Crect x='6' y='10' width='4' height='4' fill='%233f9fd8'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title" style="font-size:clamp(1rem,4vw,1.5rem)">📖 READ WITH TABITHA</h1>
+    <p class="site-tagline"><a href="index.html" style="color:var(--lilac-deep);font-weight:700">← Back to start</a></p>
+  </header>
+
+  <div class="tabitha-layout">
+    <!-- LEFT: handheld console with Tabitha + Pomodoro -->
+    <div class="handheld">
+      <div class="console">
+        <p class="console-title">▶ TABITHA</p>
+        <div class="console-screen">
+          <div class="sprite-stage" id="sprite-stage"></div>
+          <div class="dialog" id="dialog">Hi! I'm Tabitha.</div>
+          <div class="dialog-next">
+            <button class="btn-mini" id="dialog-next">NEXT ▶</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="console">
+        <p class="console-title">▶ POMODORO</p>
+        <div class="console-screen">
+          <div class="timer-display" id="timer-display">25:00</div>
+          <div class="timer-mode" id="timer-mode">FOCUS</div>
+
+          <div class="preset-row" id="preset-row">
+            <button class="btn-mini" data-work="25" data-break="5">25/5</button>
+            <button class="btn-mini" data-work="50" data-break="10">50/10</button>
+            <button class="btn-mini" data-work="90" data-break="15">90/15</button>
+            <button class="btn-mini" data-custom="1">CUSTOM</button>
+          </div>
+
+          <div class="custom-row" id="custom-row" hidden>
+            <label>Work <input type="number" id="custom-work" min="1" max="180" value="30" /></label>
+            <label>Break <input type="number" id="custom-break" min="1" max="60" value="7" /></label>
+            <button class="btn-mini" id="custom-apply">SET</button>
+          </div>
+
+          <div class="timer-btns">
+            <button class="btn-mini" id="timer-start">START</button>
+            <button class="btn-mini" id="timer-pause">PAUSE</button>
+            <button class="btn-mini" id="timer-reset">RESET</button>
+          </div>
+
+          <div class="streak" id="streak">🔥 STREAK: 0 DAYS</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: notes loader + reader -->
+    <div class="notes-area">
+      <section class="notes-loader">
+        <span class="level-label"><span class="lvl">STEP 1</span> · LOAD YOUR NOTES</span>
+        <div class="console-screen" style="border-color:var(--ink)">
+          <p style="margin-top:0">Paste the <strong>already-polished</strong> notes you made from your transcript (the Markdown you got back from your AI), or load a <code>.md</code> / <code>.txt</code> file. Tabitha doesn't transcribe or use AI — she just makes reading them easier.</p>
+          <textarea id="notes-input" placeholder="# Paste your polished markdown notes here…"></textarea>
+          <div class="loader-row">
+            <button class="btn-mini" id="load-btn">LOAD NOTES ▶</button>
+            <label class="btn-mini" style="cursor:pointer">
+              UPLOAD .MD/.TXT
+              <input type="file" id="notes-file" accept=".md,.markdown,.txt,text/plain,text/markdown" hidden />
+            </label>
+            <span class="hint" id="load-hint"></span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <span class="level-label"><span class="lvl">STEP 2</span> · READ</span>
+        <div class="toolbar">
+          <button class="btn-mini" id="toggle-bionic" title="Bold the start of each word">BIONIC</button>
+          <button class="btn-mini" id="toggle-dyslexia" title="Wider spacing + readable font">DYSLEXIA</button>
+          <button class="btn-mini" id="toggle-guide" title="Highlight the line you're on">GUIDE</button>
+          <span class="read-time" id="read-time"></span>
+        </div>
+
+        <div class="reading-outer">
+          <div class="guide-bar" id="guide-bar" hidden></div>
+          <div class="reading-wrap" id="reading-wrap">
+            <article class="reader" id="reader"></article>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>A <strong>Mr Cee</strong> project. Tabitha is a simple study buddy — no AI, no accounts.</p>
+    <p><a href="feedback.html">Got feedback? →</a></p>
+  </footer>
+
+  <script src="js/namegate.js"></script>
+  <script src="js/tabitha.js"></script>
+</body>
+</html>

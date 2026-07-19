@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lecture Transcription — AcademicComback</title>
+  <meta name="description" content="Upload lecture audio, get a raw transcript as a .docx. Nothing is stored." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23b79df2'/%3E%3Crect x='4' y='3' width='8' height='7' fill='%23fffdfa'/%3E%3Crect x='6' y='10' width='4' height='4' fill='%237a5fc0'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title" style="font-size:clamp(1rem,4vw,1.5rem)">🎙️ LECTURE TRANSCRIPTION</h1>
+    <p class="site-tagline"><a href="index.html" style="color:var(--lilac-deep);font-weight:700">← Back to start</a></p>
+  </header>
+
+  <main>
+    <div class="console">
+      <p class="console-title">▶ RAW TRANSCRIPT MACHINE</p>
+      <div class="console-screen">
+
+        <div id="intro-step">
+          <p style="margin-top:0">Record your lecture on your phone's voice-memo app, then drop the file(s) here. We split the audio in your browser, transcribe each piece, and hand you a <strong>.docx</strong>. No audio or transcript ever leaves as a stored file — it's all ephemeral.</p>
+
+          <label class="pixel-label">Lecture audio file(s)</label>
+          <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose or drop audio files">
+            <span class="dz-icon">📁</span>
+            <span id="dz-text">Tap to choose, or drag audio files here</span>
+            <input type="file" id="file-input" accept="audio/*,.m4a,.mp3,.wav,.ogg,.opus,.aac" multiple hidden />
+          </div>
+          <ul class="file-list" id="file-list"></ul>
+
+          <button class="btn btn-start" id="start-btn" disabled>▶ START TRANSCRIPTION</button>
+        </div>
+
+        <div id="progress-step" hidden>
+          <div class="pbar"><div class="pbar-fill" id="pbar-fill"></div></div>
+          <p class="status-text" id="status-text">Warming up…</p>
+          <div id="alert-slot"></div>
+        </div>
+
+        <div id="done-step" hidden>
+          <p class="status-text" style="color:var(--good)">✔ DONE! Your transcript is ready.</p>
+          <ul class="results-list" id="results-list"></ul>
+          <button class="btn btn-start" id="download-btn" style="animation:none">⬇ DOWNLOAD .DOCX</button>
+          <button class="btn btn-mini" id="restart-btn" style="margin-top:1rem">↺ Transcribe another</button>
+        </div>
+
+      </div>
+    </div>
+
+    <p style="text-align:center;font-size:0.9rem;color:#574d78">
+      Trouble? The free transcription quota is shared, so if it's busy, wait a bit and retry.
+      <br />Got a bug or idea? <a href="feedback.html" style="color:var(--lilac-deep);font-weight:700">Tell Mr Cee →</a>
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <p>A <strong>Mr Cee</strong> project.</p>
+  </footer>
+
+  <!-- ffmpeg.wasm (client-side chunking) and docx (client-side .docx build) -->
+  <script src="js/namegate.js"></script>
+  <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js" crossorigin></script>
+  <script src="https://unpkg.com/@ffmpeg/util@0.12.1/dist/umd/index.js" crossorigin></script>
+  <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js" crossorigin></script>
+  <script src="js/transcribe.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feedback — AcademicComback</title>
+  <meta name="description" content="Report a bug, suggest a feature, or pitch a new free tool to Mr Cee." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23b79df2'/%3E%3Crect x='4' y='3' width='8' height='7' fill='%23fffdfa'/%3E%3Crect x='6' y='10' width='4' height='4' fill='%237a5fc0'/%3E%3C/svg%3E" />
+  <script src="js/namegate.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title" style="font-size:clamp(1rem,4vw,1.5rem)">💬 SEND WORD</h1>
+    <p class="site-tagline"><a href="index.html" style="color:var(--lilac-deep);font-weight:700">← Back to start</a></p>
+  </header>
+
+  <main class="narrow">
+    <div class="console">
+      <p class="console-title">▶ MESSAGE MR CEE</p>
+      <div class="console-screen">
+        <p style="margin-top:0">Found a bug, want a feature, or have an idea for the next free tool? Drop it here.</p>
+
+        <!-- Netlify Forms: the data-netlify attribute lets Netlify detect and capture submissions at deploy time. -->
+        <form name="feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="thanks.html" class="form-grid">
+          <input type="hidden" name="form-name" value="feedback" />
+          <p hidden><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+          <label class="pixel-label" for="fullname">Full name</label>
+          <input type="text" id="fullname" name="fullname" required />
+
+          <label class="pixel-label" for="school">School / institution</label>
+          <input type="text" id="school" name="school" />
+
+          <label class="pixel-label" for="course">Course of study</label>
+          <input type="text" id="course" name="course" />
+
+          <label class="pixel-label" for="level">Level</label>
+          <select id="level" name="level">
+            <option value="">—</option>
+            <option>100L</option><option>200L</option><option>300L</option>
+            <option>400L</option><option>500L</option><option>600L</option>
+            <option>Postgraduate</option><option>Other</option>
+          </select>
+
+          <label class="pixel-label" for="contact">Email or WhatsApp (optional)</label>
+          <input type="text" id="contact" name="contact" />
+
+          <label class="pixel-label" for="topic">What's this about?</label>
+          <select id="topic" name="topic" required>
+            <option value="">—</option>
+            <option>Bug</option>
+            <option>Suggestion</option>
+            <option>New tool idea</option>
+            <option>Other</option>
+          </select>
+
+          <label class="pixel-label" for="details">Details</label>
+          <textarea id="details" name="details" rows="5" required placeholder="Tell me what's up…"></textarea>
+
+          <button class="btn btn-start" type="submit" style="animation:none">▶ SEND IT</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>A <strong>Mr Cee</strong> project.</p>
+  </footer>
+  <script>
+    // Pre-fill the name field from the site-wide name gate.
+    var u = window.ACT_getUser ? window.ACT_getUser() : null;
+    if (u && u.name) document.getElementById("fullname").value = u.name;
+  </script>
+</body>
+</html>

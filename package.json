@@ -1,0 +1,9 @@
+{
+  "name": "academiccomback",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Free lecture transcription + Read with Tabitha study companion. A Mr Cee project.",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

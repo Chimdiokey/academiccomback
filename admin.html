@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Usage log — AcademicComback</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23b79df2'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title" style="font-size:clamp(1rem,4vw,1.4rem)">📊 USAGE LOG</h1>
+    <p class="site-tagline">Self-reported names + timestamps. Not authentication — just a pulse on who the tools are helping.</p>
+  </header>
+
+  <main>
+    <div class="console">
+      <p class="console-title">▶ TRANSCRIPTION USAGE</p>
+      <div class="console-screen">
+        <div style="margin-bottom:1rem">
+          <button class="btn-mini" id="refresh">↻ REFRESH</button>
+          <span class="hint" id="count"></span>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>When</th><th>Name</th><th>Duration</th><th>Files</th></tr></thead>
+            <tbody id="rows"><tr><td colspan="4">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="site-tagline" style="text-align:center;font-size:0.85rem">
+      You can also read these anytime with the Netlify CLI or dashboard (Blobs → <code>usage</code> store).
+    </p>
+  </main>
+
+  <footer class="site-footer"><p>A <strong>Mr Cee</strong> project.</p></footer>
+
+  <script>
+    const rows = document.getElementById("rows");
+    const count = document.getElementById("count");
+    function fmtDur(sec) {
+      if (!sec) return "—";
+      const m = Math.round(sec / 60);
+      if (m < 60) return m + " min";
+      return Math.floor(m / 60) + "h " + (m % 60) + "m";
+    }
+    async function load() {
+      rows.innerHTML = '<tr><td colspan="4">Loading…</td></tr>';
+      try {
+        const res = await fetch("/api/usage-list");
+        if (!res.ok) throw new Error();
+        const { entries } = await res.json();
+        if (!entries.length) { rows.innerHTML = '<tr><td colspan="4">No entries yet.</td></tr>'; count.textContent = ""; return; }
+        count.textContent = `${entries.length} entr${entries.length === 1 ? "y" : "ies"}`;
+        rows.innerHTML = entries.map((e) => {
+          const when = new Date(e.timestamp).toLocaleString();
+          const name = (e.name || "").replace(/[<>&]/g, "");
+          return `<tr><td>${when}</td><td>${name}</td><td>${fmtDur(e.durationSec)}</td><td>${e.fileCount || 1}</td></tr>`;
+        }).join("");
+      } catch {
+        rows.innerHTML = '<tr><td colspan="4">Couldn\'t load the log. Is the site deployed with functions running?</td></tr>';
+      }
+    }
+    document.getElementById("refresh").addEventListener("click", load);
+    load();
+  </script>
+</body>
+</html>
