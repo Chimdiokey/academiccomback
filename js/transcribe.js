@@ -37,6 +37,11 @@ Transcript:
   const SEARCH_WINDOW = 90; // how far from the ideal cut we'll hunt for silence
   const POOL = 4;           // parallel transcription requests
 
+  // Pre-transcription cleanup for phone-in-a-lecture-hall audio:
+  // highpass drops HVAC rumble and desk/handling thumps; dynaudnorm evens out
+  // the level so a lecturer who walks away from the mic stays audible.
+  const AUDIO_FILTERS = "highpass=f=80,dynaudnorm=f=200:g=15";
+
   // ---- tuning (size warning) ----
   const SIZE_WARN_BYTES = 150 * 1024 * 1024; // 150 MB
 
@@ -271,6 +276,7 @@ Transcript:
         "-ss", start.toFixed(3),
         "-to", end.toFixed(3),
         "-i", inName,
+        "-af", AUDIO_FILTERS,
         "-ac", "1", "-ar", "16000", "-b:a", "32k",
         outName,
       ]);

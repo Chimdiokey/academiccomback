@@ -31,6 +31,12 @@ export default async (req) => {
   form.append("file", new Blob([audio], { type: "audio/mpeg" }), "chunk.mp3");
   form.append("model", "whisper-large-v3-turbo");
   form.append("response_format", "json");
+  // Lectures are delivered in English (often heavily accented). Naming the
+  // language stops Whisper spending capacity guessing it, which is the main
+  // source of garbled words and invented phrases on poor room recordings.
+  form.append("language", "en");
+  // Greedy decoding: don't creatively fill in passages that aren't audible.
+  form.append("temperature", "0");
 
   let groqRes;
   try {
