@@ -12,3 +12,4 @@
   for = "/js/vendor/ffmpeg/*"
   [headers.values]
     Cross-Origin-Resource-Policy = "same-origin"
+    Cross-Origin-Embedder-Policy = "require-corp"
