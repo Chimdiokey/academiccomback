@@ -7,3 +7,8 @@
   [headers.values]
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Embedder-Policy = "require-corp"
+
+[[headers]]
+  for = "/js/vendor/ffmpeg/*"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "same-origin"
