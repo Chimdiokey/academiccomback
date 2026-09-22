@@ -3,3 +3,7 @@ node_modules/
 .DS_Store
 .env
 Claude outputs/
+
+# Jupyter learning notebooks: scratch audio, sandbox repos, checkpoints
+learn/workspace/
+.ipynb_checkpoints/
